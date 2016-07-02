@@ -5,7 +5,8 @@ class LocotimezoneTest < Minitest::Test
     refute_nil ::Locotimezone::VERSION
   end
 
-  def test_it_does_something_useful
-    assert false
+  def test_that_it_has_location
+    loco = Locotimezone::LocoTime.new address
+    refute_nil loco.location
   end
 end
