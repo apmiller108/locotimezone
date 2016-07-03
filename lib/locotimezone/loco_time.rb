@@ -1,4 +1,3 @@
-require 'open-uri'
 require 'json'
 
 class LocoTime
@@ -7,7 +6,7 @@ class LocoTime
     @key      = options.fetch(:key, ENV['GOOGLE_API_KEY'])
   end
 
-  def run_query
+  def transform_location
     Hash[
       formatted_address: get_location['formatted_address'],
       location: get_location['geometry']['location']
@@ -18,7 +17,7 @@ class LocoTime
 
   def get_location
     return @location if defined? @location
-    @location = open(geolocation_query_url) { |f| JSON.parse f.read }
+    @location = Loco.new(@address, @key).geolocate
     format_results
   end
 
@@ -28,11 +27,6 @@ class LocoTime
 
   def timezone_query_url
     'https://maps.googleapis.com/maps/api/timezone/json'
-  end
-
-  def geolocation_query_url
-    'https://maps.googleapis.com/maps/api/geocode/json' + '?key=' + @key +
-      '&address=' + @address
   end
 
 end
