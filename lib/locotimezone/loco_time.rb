@@ -9,7 +9,8 @@ class LocoTime
   def transform_location
     Hash[
       formatted_address: get_location['formatted_address'],
-      location: get_location['geometry']['location']
+      location: get_location['geometry']['location'],
+      timezone: get_timezone
     ]
   end
 
@@ -18,15 +19,11 @@ class LocoTime
   def get_location
     return @location if defined? @location
     @location = Loco.new(@address, @key).geolocate
-    format_results
   end
 
-  def format_results
-    @location = @location['results'][0]
-  end
-
-  def timezone_query_url
-    'https://maps.googleapis.com/maps/api/timezone/json'
+  def get_timezone
+    return @timezone if defined? @timezone
+    @timezone = Timezone.new(@location, @key).timezone
   end
 
 end

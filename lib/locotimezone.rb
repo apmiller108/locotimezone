@@ -1,6 +1,7 @@
 require 'locotimezone/version'
 require 'locotimezone/loco_time'
 require 'locotimezone/loco'
+require 'locotimezone/timezone'
 
 module Locotimezone
 
