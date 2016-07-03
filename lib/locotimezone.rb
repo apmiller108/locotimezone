@@ -1,19 +1,11 @@
-require "locotimezone/version"
+require 'locotimezone/version'
+require 'locotimezone/loco_time'
 
 module Locotimezone
-  class LocoTime
-    attr_reader :location
-    def initialize(options = {})
-      @address  = options.fetch(:address)
-      @key      = options.fetch(:key, ENV['GOOGLE_API_KEY'])
-      @location = get_location
-    end
 
-    private
-
-    def get_location
-
-    end
-
+  def self.get_loco(address = '525 NW 1st Ave FL 33301', options = {})
+    lt = LocoTime.new address, options
+    lt.run_query
   end
+
 end
