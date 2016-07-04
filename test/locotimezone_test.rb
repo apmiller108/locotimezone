@@ -14,4 +14,9 @@ class LocotimezoneTest < Minitest::Test
     loco = Locotimezone.get_loco address
     refute_nil loco[:formatted_address]
   end
+
+  def test_that_it_has_timezone_date
+    loco = Locotimezone.get_loco address
+    refute_nil loco[:timezone]
+  end
 end
