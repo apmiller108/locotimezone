@@ -1,3 +1,5 @@
+require 'pry'
+require 'open-uri'
 require 'json'
 
 class LocoTime
@@ -8,9 +10,9 @@ class LocoTime
 
   def transform_location
     Hash[
-      formatted_address: get_location['formatted_address'],
-      location: get_location['geometry']['location'],
-      timezone: get_timezone
+      formatted_address: get_location[:formatted_address],
+      location: get_location[:location],
+      timezone: nil
     ]
   end
 

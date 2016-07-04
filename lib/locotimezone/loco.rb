@@ -1,6 +1,3 @@
-require 'open-uri'
-require 'json'
-
 class Loco
 
   def initialize(address, key)
@@ -10,7 +7,7 @@ class Loco
 
   def geolocate
     response = open(geolocation_query_url) { |f| JSON.parse f.read }
-    format_results(response)
+    format_results response
   end
 
   private 
@@ -21,6 +18,9 @@ class Loco
   end
 
   def format_results(response)
-    response['results'][0]
+    Hash[
+      formatted_address: response['results'][0]['formatted_address'],
+      location: response['results'][0]['geometry']['location']
+    ]
   end
 end
