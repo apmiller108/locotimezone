@@ -4,10 +4,12 @@ require 'json'
 class LocoTime
   attr_reader :address
   attr_reader :key
+  attr_reader :location_only
 
   def initialize(address:, location_only:, timezone_only:, insecure:, key:)
-    @address  = address
-    @key      = key
+    @address       = address
+    @location_only = location_only
+    @key           = key
   end
 
   def transform
