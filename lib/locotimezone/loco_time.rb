@@ -1,4 +1,3 @@
-require 'pry'
 require 'open-uri'
 require 'json'
 
@@ -12,7 +11,7 @@ class LocoTime
     Hash[
       formatted_address: get_location[:formatted_address],
       location: get_location[:location],
-      timezone: nil
+      timezone: get_timezone
     ]
   end
 
