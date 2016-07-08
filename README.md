@@ -1,6 +1,6 @@
 # Locotimezone
 
-TODO: write a description
+Transform a street address into geoloction and timezone data.
 
 ## Installation
 

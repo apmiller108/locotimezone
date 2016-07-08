@@ -2,12 +2,17 @@ require 'open-uri'
 require 'json'
 
 class LocoTime
-  def initialize(address, options = {})
-    @address  = address
-    @key      = options.fetch(:key, ENV['GOOGLE_API_KEY'])
+  attr_reader :address
+  attr_reader :key
+  attr_reader :location_only
+
+  def initialize(address:, location_only:, timezone_only:, insecure:, key:)
+    @address       = address
+    @location_only = location_only
+    @key           = key
   end
 
-  def transform_location
+  def transform
     Hash[
       formatted_address: get_location[:formatted_address],
       location: get_location[:location],
@@ -19,12 +24,12 @@ class LocoTime
 
   def get_location
     return @location if defined? @location
-    @location = Loco.new(@address, @key).geolocate
+    @location = Location.new(address, key).geolocate
   end
 
   def get_timezone
     return @timezone if defined? @timezone
-    @timezone = Timezone.new(@location, @key).timezone
+    @timezone = Timezone.new(@location, key).timezone
   end
 
 end
