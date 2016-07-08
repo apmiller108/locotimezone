@@ -1,4 +1,4 @@
-class Loco
+class Location
 
   def initialize(address, key)
     @address = address

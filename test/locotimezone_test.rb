@@ -6,17 +6,17 @@ class LocotimezoneTest < Minitest::Test
   end
 
   def test_that_it_has_location
-    loco = Locotimezone.get_loco address
+    loco = Locotimezone.locotime address
     refute_nil loco[:location]
   end
 
   def test_that_it_has_formatted_address
-    loco = Locotimezone.get_loco address
+    loco = Locotimezone.locotime address
     refute_nil loco[:formatted_address]
   end
 
   def test_that_it_has_timezone_date
-    loco = Locotimezone.get_loco address
+    loco = Locotimezone.locotime address
     refute_nil loco[:timezone]
   end
 end
