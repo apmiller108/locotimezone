@@ -2,34 +2,41 @@ require 'open-uri'
 require 'json'
 
 class LocoTime
-  attr_reader :address
-  attr_reader :key
-  attr_reader :location_only
+  attr_reader :location_only, :timezone_only, :address, :key
+  attr_accessor :location
 
-  def initialize(address:, location_only:, timezone_only:, insecure:, key:)
-    @address       = address
+  def initialize(location_only:, timezone_only:, address:, location:, secure:, key:)
     @location_only = location_only
+    @timezone_only = timezone_only
+    @location      = location
+    @address       = address
     @key           = key
   end
 
   def transform
-    Hash[
-      formatted_address: get_location[:formatted_address],
-      location: get_location[:location],
-      timezone: get_timezone
-    ]
+    return nil if location_only && timezone_only
+    location_data = get_location unless timezone_only 
+    timezone_data = get_timezone unless location_only
+    build_hash(location_data, timezone_data)
   end
 
   private
 
   def get_location
-    return @location if defined? @location
-    @location = Location.new(address, key).geolocate
+    results = Location.new(address, key).geolocate
+    self.location = results[:location]
+    results
   end
 
   def get_timezone
-    return @timezone if defined? @timezone
-    @timezone = Timezone.new(@location, key).timezone
+    Timezone.new(location, key).timezone
+  end
+
+  def build_hash(location_data, timezone_data)
+    data = Hash.new
+    data[:geo] = location_data unless location_data.nil?
+    data[:timezone] = timezone_data unless timezone_data.nil?
+    data
   end
 
 end
