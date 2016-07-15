@@ -1,8 +1,9 @@
 class Location
+  attr_reader :key, :address
 
   def initialize(address, key)
     @address = address
-    @key = key
+    @key     = key
   end
 
   def geolocate
@@ -13,14 +14,18 @@ class Location
   private 
 
   def geolocation_query_url
-    'https://maps.googleapis.com/maps/api/geocode/json' + '?key=' + @key +
-      '&address=' + @address
+    'https://maps.googleapis.com/maps/api/geocode/json' + '?key=' + key +
+      '&address=' + address
   end
 
   def format_results(response)
     Hash[
       formatted_address: response['results'][0]['formatted_address'],
-      location: response['results'][0]['geometry']['location']
+      location: symbolize_keys(response['results'][0]['geometry']['location'])
     ]
+  end
+
+  def symbolize_keys(response)
+    response.map { |k,v| [k.to_sym, v] }.to_h
   end
 end
