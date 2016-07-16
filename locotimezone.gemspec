@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Alex Miller"]
   spec.email         = ["apmiller108@yahoo.com"]
 
-  spec.summary       = %q{Get location and time zone date from an address.}
-  spec.description   = %q{Uses Google's Geolocation and Timezones APIs to obtain logitude, latitude, and time zone data from an address.}
+  spec.summary       = %q{Transform a street address into geoloction and timezone data.}
+  spec.description   = %q{This is essentially an adapter for requests to Google's Timezone and Geolocation APIs.}
   spec.homepage      = "https://github.com/apmiller108/locotimezone"
   spec.license       = "MIT"
 
