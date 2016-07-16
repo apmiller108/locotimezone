@@ -5,7 +5,7 @@ class LocoTime
   attr_reader :location_only, :timezone_only, :address, :key
   attr_accessor :location
 
-  def initialize(location_only:, timezone_only:, address:, location:, secure:, key:)
+  def initialize(location_only:, timezone_only:, address:, location:, key:)
     @location_only = location_only
     @timezone_only = timezone_only
     @location      = location

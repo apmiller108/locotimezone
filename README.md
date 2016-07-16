@@ -1,6 +1,9 @@
 # Locotimezone
 
-Transform a street address into geoloction and timezone data.
+Transform a street address into geoloction and timezone data. Essentially, this
+is an adapter for the [Google Maps Time Zone API](https://developers.google.com/maps/documentation/timezone/intro) and the [The Google Maps Geolocation API](https://developers.google.com/maps/documentation/geolocation/intro).
+
+All requests to the Google APIs are done over SSL.
 
 ## Installation
 
@@ -20,7 +23,9 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'locotimezone'
+```
 
 ## Development
 
