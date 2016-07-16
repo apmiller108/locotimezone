@@ -77,7 +77,7 @@ Locotimezone.locotime location: location, timezone_only: true
 
 ## Versions of Ruby
 
-This library should work with Ruby 2.1 and higher verions.
+This library should work with Ruby 2.1 and higher versions.
 
 It has been tested on the following versions of Ruby:
 * Ruby 2.3
