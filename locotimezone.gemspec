@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Alex Miller"]
   spec.email         = ["apmiller108@yahoo.com"]
 
-  spec.summary       = %q{Transform a street address into geoloction and timezone data.}
+  spec.summary       = %q{Get timezone and gelocation data for a street address.}
   spec.description   = %q{Transform a street address into geoloction and timezone data.}
   spec.homepage      = "https://github.com/apmiller108/locotimezone"
   spec.license       = "MIT"
