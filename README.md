@@ -75,6 +75,13 @@ Locotimezone.locotime location: location, timezone_only: true
   timezone data for the specified `:location`.  When `timezone_only: true`, you
   must inlcude the `:location` hash (see above).
 
+## Versions of Ruby
+
+This library should work with Ruby 2.1 and higher versions.
+
+It has been tested on the following versions of Ruby:
+* Ruby 2.3
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
