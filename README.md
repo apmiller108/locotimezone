@@ -60,6 +60,20 @@ Locotimezone.locotime location: location, timezone_only: true
 # {:timezone=>
 #   {:timezone_id=>"America/New_York", :timezone_name=>"Eastern Daylight Time"}}
 ```
+## Options and Setup
+
+`Locotimezone.locotime` can take the following option hash keys:
+* `:address` is a string representation of a street address. This is required except when `timezone_only: true`.
+* `:location` is required only when `timezone_only: true`. The corresponding
+  value is a hash containing the latitude and longitude: `{ lat: 26.1288238, lng: -80.1449743 }`.
+* `:key` is for your Google API key.  This is not required but recommended if you
+  want higher API quota. Create an API key and enable APIs in your [Google
+  Developer Console](https://console.developers.google.com). As an alternative
+  to passing the `:key` everytime, simply set `GOOGLE_API_KEY` environment variable.
+* `location_only: true` skips the call to Google Maps Timezone API. Geolocation only.
+* `timezone_only: true` skips the call to Google Maps Geolocation API.  Gets only the
+  timezone data for the specified `:location`.  When `timezone_only: true`, you
+  must inlcude the `:location` hash (see above).
 
 ## Development
 
