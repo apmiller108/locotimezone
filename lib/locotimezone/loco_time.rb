@@ -10,7 +10,7 @@ class LocoTime
     @timezone_only = timezone_only
     @location      = location
     @address       = address
-    @key           = key
+    @key           = key || ''
   end
 
   def transform
