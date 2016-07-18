@@ -13,6 +13,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{Transform a street address into geoloction and timezone data.}
   spec.homepage      = "https://github.com/apmiller108/locotimezone"
   spec.license       = "MIT"
+  spec.required_ruby_version = '>= 2.2.1'
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
