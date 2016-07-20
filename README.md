@@ -1,3 +1,5 @@
+[![Code Triagers Badge](https://www.codetriage.com/apmiller108/locotimezone/badges/users.svg)](https://www.codetriage.com/apmiller108/locotimezone)
+
 # Locotimezone
 
 Transform a street address into geoloction and timezone data. Essentially, this
