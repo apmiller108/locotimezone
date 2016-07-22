@@ -15,6 +15,11 @@ class LocotimezoneErrorsTest < Minitest::Test
       assert true, result[:timezone].empty?
     end
 
+    it 'must be empty if no timezone is found' do
+      result = Locotimezone.locotime location: '%', timezone_only: true
+      assert true, result[:timezone].empty?
+    end
+
     it 'raises argument error if no address is given' do
       assert_raises(ArgumentError) { Locotimezone.locotime }
     end

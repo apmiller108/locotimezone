@@ -20,9 +20,13 @@ class Timezone
   end
 
   def latitude_longitude
-    lat_lng = Array.new
-    location.each { |k, v| lat_lng.push v.to_s }
-    lat_lng.join(',')
+    if location.respond_to? :has_key?
+      lat_lng = Array.new
+      location.each { |k, v| lat_lng.push v.to_s }
+      lat_lng.join(',')
+    else 
+      ''
+    end
   end
 
   def timestamp
