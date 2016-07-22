@@ -48,4 +48,11 @@ class LocotimezoneTest < Minitest::Test
     assert true, result[:geo].empty?
     assert true, result[:timezone].empty?
   end
+
+  def test_that_it_is_empty_if_no_location_found
+    result = Locotimezone.locotime address: '%'
+    assert true, result[:geo].empty?
+    assert true, result[:timezone].empty?
+  end
+
 end

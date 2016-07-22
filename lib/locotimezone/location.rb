@@ -22,6 +22,7 @@ class Location
   end
 
   def format_results(response)
+    return {} if response['results'].empty?
     Hash[
       formatted_address: response['results'][0]['formatted_address'],
       location: symbolize_keys(response['results'][0]['geometry']['location'])
