@@ -7,6 +7,7 @@ class Timezone
   end
 
   def timezone
+    return {} if location.empty?
     response = open(timezone_query_url) { |f| JSON.parse f.read }
     format_results response
   end

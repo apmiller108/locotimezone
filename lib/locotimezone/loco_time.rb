@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'json'
+require 'pry'
 
 class LocoTime
   attr_reader :location_only, :timezone_only, :address, :key
@@ -34,7 +35,7 @@ class LocoTime
 
   def get_location
     results = Location.new(address, key).geolocate
-    self.location = results[:location]
+    self.location = results[:location] || {}
     results
   end
 

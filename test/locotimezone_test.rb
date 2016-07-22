@@ -42,4 +42,10 @@ class LocotimezoneTest < Minitest::Test
     assert_nil self.class.just_timezone[:geo]
     refute_nil self.class.just_timezone[:timezone]
   end
+
+  def test_that_it_is_empty_if_bad_request
+    result = Locotimezone.locotime address: ''
+    assert true, result[:geo].empty?
+    assert true, result[:timezone].empty?
+  end
 end
