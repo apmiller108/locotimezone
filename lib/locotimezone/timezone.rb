@@ -7,11 +7,19 @@ class Timezone
   end
 
   def timezone
+    return {} if location_invalid?
     response = open(timezone_query_url) { |f| JSON.parse f.read }
-    format_results response
+    rescue OpenURI::HTTPError
+      {}
+    else
+      format_results response
   end
 
   private
+
+  def location_invalid?
+    location.empty? || !location.respond_to?(:has_key?)
+  end
 
   def timezone_query_url
     'https://maps.googleapis.com/maps/api/timezone/json' + '?key=' + key + 
@@ -19,9 +27,9 @@ class Timezone
   end
 
   def latitude_longitude
-    lat_lng = Array.new
-    location.each { |k, v| lat_lng.push v.to_s }
-    lat_lng.join(',')
+      lat_lng = Array.new
+      location.each { |k, v| lat_lng.push v.to_s }
+      lat_lng.join(',')
   end
 
   def timestamp

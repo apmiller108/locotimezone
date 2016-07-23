@@ -8,6 +8,9 @@ class Location
 
   def geolocate
     response = open(geolocation_query_url) { |f| JSON.parse f.read }
+  rescue OpenURI::HTTPError
+    {}
+  else
     format_results response
   end
 
@@ -19,6 +22,7 @@ class Location
   end
 
   def format_results(response)
+    return {} if response['results'].empty?
     Hash[
       formatted_address: response['results'][0]['formatted_address'],
       location: symbolize_keys(response['results'][0]['geometry']['location'])
@@ -28,4 +32,5 @@ class Location
   def symbolize_keys(response)
     response.map { |k,v| [k.to_sym, v] }.to_h
   end
+
 end

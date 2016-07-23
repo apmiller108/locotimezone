@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'json'
+require 'pry'
 
 class LocoTime
   attr_reader :location_only, :timezone_only, :address, :key
@@ -14,7 +15,7 @@ class LocoTime
   end
 
   def transform
-    return nil if location_only && timezone_only
+    validate_options
     location_data = get_location unless timezone_only 
     timezone_data = get_timezone unless location_only
     build_hash(location_data, timezone_data)
@@ -22,9 +23,19 @@ class LocoTime
 
   private
 
+  def validate_options
+    if address.nil? && !timezone_only
+      raise ArgumentError, 
+        'locotimezone: address is required unless timezone_only'
+    elsif location.nil? && timezone_only
+      raise ArgumentError, 
+        'locotimezone: location is required when timezone_only'
+    end
+  end 
+
   def get_location
     results = Location.new(address, key).geolocate
-    self.location = results[:location]
+    self.location = results[:location] || {}
     results
   end
 
@@ -34,7 +45,7 @@ class LocoTime
 
   def build_hash(location_data, timezone_data)
     data = Hash.new
-    data[:geo] = location_data unless location_data.nil?
+    data[:geo]      = location_data unless location_data.nil?
     data[:timezone] = timezone_data unless timezone_data.nil?
     data
   end
