@@ -62,6 +62,15 @@ Locotimezone.locotime location: location, timezone_only: true
 # {:timezone=>
 #   {:timezone_id=>"America/New_York", :timezone_name=>"Eastern Daylight Time"}}
 ```
+
+If the address or location cannot be resolved, an empty hash will be returned.
+
+```ruby
+Locotimezone.locotime address: '1234 Fake Address'
+# => 
+# {:geo=>{}, :timezone=>{}}
+```
+
 ## Options and Setup
 
 `Locotimezone.locotime` can take the following option hash keys:
