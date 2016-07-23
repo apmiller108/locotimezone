@@ -3,7 +3,7 @@ require 'test_helper'
 class LocotimezoneErrorsTest < Minitest::Test
 
   describe 'testing error handling' do
-    it 'must be empty if bad request' do
+    it 'must be empty if getting location returns bad request' do
       result = Locotimezone.locotime address: ''
       assert true, result[:geo].empty?
       assert true, result[:timezone].empty?
@@ -20,7 +20,7 @@ class LocotimezoneErrorsTest < Minitest::Test
       assert true, result[:timezone].empty?
     end
 
-    it 'must be empty if location returns bad request' do
+    it 'must be empty if getting timezone returns bad request' do
       result = Locotimezone.locotime location: { lat: 'bob', lng: 'loblaw' }, 
         timezone_only: true
       assert true, result[:timezone].empty?
