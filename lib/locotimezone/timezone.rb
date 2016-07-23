@@ -9,7 +9,10 @@ class Timezone
   def timezone
     return {} if location_invalid?
     response = open(timezone_query_url) { |f| JSON.parse f.read }
-    format_results response
+    rescue OpenURI::HTTPError
+      {}
+    else
+      format_results response
   end
 
   private

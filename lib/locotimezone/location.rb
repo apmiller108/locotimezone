@@ -8,10 +8,10 @@ class Location
 
   def geolocate
     response = open(geolocation_query_url) { |f| JSON.parse f.read }
-    rescue OpenURI::HTTPError
-      return {}
-    else
-      format_results response
+  rescue OpenURI::HTTPError
+    {}
+  else
+    format_results response
   end
 
   private 

@@ -9,14 +9,20 @@ class LocotimezoneErrorsTest < Minitest::Test
       assert true, result[:timezone].empty?
     end
 
-    it 'must be empty if no location is found' do
+    it 'must be empty if no location if found' do
       result = Locotimezone.locotime address: '%'
       assert true, result[:geo].empty?
       assert true, result[:timezone].empty?
     end
 
-    it 'must be empty if no timezone is found' do
+    it 'must be empty if location is not a hash' do
       result = Locotimezone.locotime location: '%', timezone_only: true
+      assert true, result[:timezone].empty?
+    end
+
+    it 'must be empty if location returns bad request' do
+      result = Locotimezone.locotime location: { lat: 'bob', lng: 'loblaw' }, 
+        timezone_only: true
       assert true, result[:timezone].empty?
     end
 
