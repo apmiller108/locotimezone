@@ -4,33 +4,33 @@ require 'pry'
 
 module Locotimezone
   class LocoTime
-    attr_reader :location_only, :timezone_only, :address, :key
+    attr_reader :skip, :address, :key
     attr_accessor :location
 
-    def initialize(location_only:, timezone_only:, address:, location:, key:)
-      @location_only = location_only
-      @timezone_only = timezone_only
+    def initialize(address:, location:, skip:, key:)
       @location      = location
       @address       = address
+      @skip          = skip
       @key           = key || ''
     end
 
     def transform
       validate_options
-      location_data = get_location unless timezone_only 
-      timezone_data = get_timezone unless location_only
+      location_data = get_location unless skip == :location
+      timezone_data = get_timezone unless skip == :timezone
       build_hash(location_data, timezone_data)
     end
 
     private
 
     def validate_options
-      if address.nil? && !timezone_only
+      if address.nil? && (skip == :timezone || skip.nil?)
         raise ArgumentError, 
-          'locotimezone: address is required unless timezone_only'
-      elsif location.nil? && timezone_only
+          'locotimezone: address is required unless skipping location'
+      elsif location.nil? && skip == :location
         raise ArgumentError, 
-          'locotimezone: location is required when timezone_only'
+          'locotimezone: location(lat and lng) is required when skipping'\
+          'location'
       end
     end 
 

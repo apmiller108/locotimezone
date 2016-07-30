@@ -30,7 +30,7 @@ class LocotimezoneErrorsTest < Minitest::Test
       assert_raises(ArgumentError) { Locotimezone.locotime }
     end
 
-    it 'raises argument error if no location is given when timezone only' do
+    it 'raises argument error if no location is given when skipping location' do
       assert_raises ArgumentError do 
         Locotimezone.locotime skip: :location
       end
