@@ -70,6 +70,14 @@ If the address or location cannot be resolved, an empty hash will be returned.
 Locotimezone.locotime address: '1234 Fake Address'
 # => 
 # {:geo=>{}, :timezone=>{}}
+
+Locotimezone.locotime address: '1234 Fake Address', skip: :timezone
+# => 
+# {:geo=>{}}
+
+Locotimezone.locotime location: { lat: 0, lng: 0 }
+# => 
+# {:timezone=>{}}
 ```
 
 ## Options and Setup
