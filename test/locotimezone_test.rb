@@ -10,9 +10,9 @@ class LocotimezoneTest < Minitest::Test
     LocotimezoneTest.locotime = LocotimezoneTest.locotime || 
       Locotimezone.locotime(address: address)
     LocotimezoneTest.just_location = LocotimezoneTest.just_location || 
-      Locotimezone.locotime(address: address, location_only: true)
+      Locotimezone.locotime(address: address, skip: :timezone)
     LocotimezoneTest.just_timezone = LocotimezoneTest.just_timezone || 
-      Locotimezone.locotime(location: lat_lng, timezone_only: true)
+      Locotimezone.locotime(location: lat_lng, skip: :location)
   end
 
   def test_that_it_has_a_version_number
