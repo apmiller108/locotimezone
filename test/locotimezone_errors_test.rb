@@ -16,13 +16,13 @@ class LocotimezoneErrorsTest < Minitest::Test
     end
 
     it 'must be empty if location is not a hash' do
-      result = Locotimezone.locotime location: '%', timezone_only: true
+      result = Locotimezone.locotime location: '%', skip: :location
       assert true, result[:timezone].empty?
     end
 
     it 'must be empty if getting timezone returns bad request' do
       result = Locotimezone.locotime location: { lat: 'bob', lng: 'loblaw' }, 
-        timezone_only: true
+        skip: :location
       assert true, result[:timezone].empty?
     end
 
@@ -32,7 +32,7 @@ class LocotimezoneErrorsTest < Minitest::Test
 
     it 'raises argument error if no location is given when timezone only' do
       assert_raises ArgumentError do 
-        Locotimezone.locotime timezone_only: true 
+        Locotimezone.locotime skip: :location
       end
     end
 
