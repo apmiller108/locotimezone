@@ -39,6 +39,7 @@ module Locotimezone
     end
 
     def format_results(response)
+      return {} if response['status'] == 'ZERO_RESULTS'
       Hash[
         timezone_id: response['timeZoneId'], 
         timezone_name: response['timeZoneName']

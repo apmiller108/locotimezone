@@ -5,21 +5,21 @@ class LocotimezoneErrorsTest < Minitest::Test
   describe 'testing error handling' do
     it 'must be empty if getting location returns bad request' do
       result = Locotimezone.locotime address: ''
-      assert true, result[:geo].empty?
-      assert true, result[:timezone].empty?
+      assert_empty result[:geo]
+      assert_empty result[:timezone]
     end
 
     it 'must be empty if no location if found' do
       result = Locotimezone.locotime address: '%'
-      assert true, result[:geo].empty?
-      assert true, result[:timezone].empty?
+      assert_empty result[:geo]
+      assert_empty result[:timezone]
     end
 
-    it 'must be empty if location is not a string' do
+    it 'must return a geo hash even if address is not a string' do
       data_types = [[], {}, 0.1, 1, :a, 0..1, true]
       data_types.each do |data|
         result = Locotimezone.locotime address: data
-        assert true, result[:geo].empty?
+        assert result[:geo]
       end
     end
 
@@ -27,13 +27,18 @@ class LocotimezoneErrorsTest < Minitest::Test
       data_types = [[], 0.1, 1, 'a', :a, 0..1, true]
       data_types.each do |data|
         result = Locotimezone.locotime location: data
-        assert true, result[:timezone].empty?
+        assert_empty result[:timezone]
       end
     end
 
     it 'must be empty if getting timezone returns bad request' do
       result = Locotimezone.locotime location: { lat: 'bob', lng: 'loblaw' }
-      assert true, result[:timezone].empty?
+      assert_empty result[:timezone]
+    end
+
+    it 'must be empty if timezone cannot be found' do
+      result = Locotimezone.locotime location: { lat: 0, lng: 0 }
+      assert_empty result[:timezone]
     end
 
     it 'raises argument error if neither address not location is given' do
