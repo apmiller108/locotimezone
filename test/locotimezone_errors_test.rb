@@ -15,6 +15,14 @@ class LocotimezoneErrorsTest < Minitest::Test
       assert true, result[:timezone].empty?
     end
 
+    it 'must be empty if location is not a string' do
+      data_types = [[], {}, 0.1, 1, :a, 0..1, true]
+      data_types.each do |data|
+        result = Locotimezone.locotime address: data
+        assert true, result[:geo].empty?
+      end
+    end
+
     it 'must be empty if location is not a hash' do
       data_types = [[], 0.1, 1, 'a', :a, 0..1, true]
       data_types.each do |data|

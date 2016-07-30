@@ -19,7 +19,7 @@ module Locotimezone
 
     def geolocation_query_url
       'https://maps.googleapis.com/maps/api/geocode/json' + '?key=' + key +
-        '&address=' + address
+        '&address=' + address.to_s
     end
 
     def format_results(response)
