@@ -40,24 +40,25 @@ Locotimezone.locotime address: address
 #   {:timezone_id=>"America/New_York", :timezone_name=>"Eastern Daylight Time"}}
 ```
 
-Not interested in timezone? Skip it. 
+Not interested in timezone? Skip it to just get geocoded results.
 
 ```ruby
 require 'locotimezone'
 
-Locotimezone.locotime address: address, location_only: true
+Locotimezone.locotime address: address, skip: :timezone
 # =>
 # {:geo=>
 #   {:formatted_address=>"525 NW 1st Ave, Fort Lauderdale, FL 33301, USA",
 #      :location=>{:lat=>26.1288238, :lng=>-80.1449743}}}
 ```
 
-Only want timezone? No problem, but you'll need include a location hash.
+If you alredy have latitude and longitude, and you're only interested in getting
+the timezone data, just pass your own location hash like so:
 
 ```ruby
 location = { lat: 26.1288238, lng: -80.1449743 }
 
-Locotimezone.locotime location: location, timezone_only: true
+Locotimezone.locotime location: location
 # =>
 # {:timezone=>
 #   {:timezone_id=>"America/New_York", :timezone_name=>"Eastern Daylight Time"}}

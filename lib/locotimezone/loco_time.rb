@@ -1,6 +1,5 @@
 require 'open-uri'
 require 'json'
-require 'pry'
 
 module Locotimezone
   class LocoTime
@@ -10,7 +9,7 @@ module Locotimezone
     def initialize(address:, location:, skip:, key:)
       @location      = location
       @address       = address
-      @skip          = skip
+      @skip          = location ? :location : skip
       @key           = key || ''
     end
 
@@ -26,11 +25,7 @@ module Locotimezone
     def validate_options
       if address.nil? && (skip == :timezone || skip.nil?)
         raise ArgumentError, 
-          'locotimezone: address is required unless skipping location'
-      elsif location.nil? && skip == :location
-        raise ArgumentError, 
-          'locotimezone: location(lat and lng) is required when skipping'\
-          'location'
+          'locotimezone: missing address or location.'
       end
     end 
 
