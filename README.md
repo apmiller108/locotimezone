@@ -94,7 +94,7 @@ Locotimezone.locotime location: { lat: 0, lng: 0 }
 
 ## Command Line Utility
 
-Use the command line utility to convert an address.
+Use the command-line utility to convert an address.
 
 ```shell
 $ locotimezone 525 NW 1st Ave Fort Lauderdale, FL 33301
@@ -107,6 +107,7 @@ Use the command-line utility to get timezone data for latitude and longitude
 $ locotimezone -l 26.1288238,-80.1449743
 {:timezone=>{:timezone_id=>"America/New_York", :timezone_name=>"Eastern Daylight Time"}}
 ```
+
 ## Versions of Ruby
 
 This library should work with Ruby 2.1 and higher versions.
