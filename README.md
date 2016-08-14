@@ -92,6 +92,22 @@ Locotimezone.locotime location: { lat: 0, lng: 0 }
 * `skip: :timezone` skips the call to Google Maps Timezone API. For geolocation,
   only.
 
+## Command Line Utility
+
+Use the command-line utility to convert an address.
+
+```shell
+$ locotimezone 525 NW 1st Ave Fort Lauderdale, FL 33301
+{:geo=>{:formatted_address=>"150 NW 1st Ave, Fort Lauderdale, FL 33301, USA", :location=>{:lat=>26.1222723, :lng=>-80.1445756}}, :timezone=>{:timezone_id=>"America/New_York", :timezone_name=>"Eastern Daylight Time"}}
+```
+
+Use the command-line utility to get timezone data for latitude and longitude
+
+```shell
+$ locotimezone -l 26.1288238,-80.1449743
+{:timezone=>{:timezone_id=>"America/New_York", :timezone_name=>"Eastern Daylight Time"}}
+```
+
 ## Versions of Ruby
 
 This library should work with Ruby 2.1 and higher versions.

@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/locotimezone'
+require 'optparse'
+
+parser = OptionParser.new do |opts|
+  opts.banner = 'Usage: locotimezone [options] command'
+  opts.separator ''
+  opts.separator 'Options:'
+  opts.on('-l', '--location [LAT,LNG]', 'Get timezone data from latitude and' \
+          ' longitude') do |lat_lng|
+    timezone_data(lat_lng)
+  end
+  opts.on('-h', '--help', 'Show this message') do
+    puts opts
+    exit
+  end
+end
+
+def timezone_data(lat_lng)
+  location_array = lat_lng.split(',')
+  location_hash = Hash[
+    lat: location_array[0].to_f,
+    lng: location_array[1].to_f
+   ]
+  puts location_hash
+  puts Locotimezone.locotime location: location_hash
+  exit
+end
+
+parser.parse!
+address = ARGV.join(' ')
+
+puts Locotimezone.locotime address: address
+
+
