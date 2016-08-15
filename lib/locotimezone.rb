@@ -25,7 +25,7 @@ module Locotimezone
   end
 
   def self.reset_configuration
-    @configuration = Configuration.new
+    self.configuration = Configuration.new
   end
 
 end
