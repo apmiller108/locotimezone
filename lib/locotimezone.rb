@@ -14,8 +14,7 @@ module Locotimezone
     LocoTime.new(
       location: options.fetch(:location, nil),
       address: options.fetch(:address, nil), 
-      skip: options.fetch(:skip, nil),
-      key: options.fetch(:key, ENV['GOOGLE_API_KEY'])
+      skip: options.fetch(:skip, nil)
     ).transform
   end
 

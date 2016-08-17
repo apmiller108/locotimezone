@@ -10,3 +10,9 @@ end
 def lat_lng
   { lat: '26.1288238', lng: '-80.1449743' }
 end
+
+def set_configuration
+  Locotimezone.configure do |config| 
+    config.google_api_key = ENV['GOOGLE_API_KEY']
+  end
+end
