@@ -18,7 +18,8 @@ module Locotimezone
     private
 
     def location_invalid?
-      !location.respond_to? :has_key? || location.empty?
+      return false unless location.respond_to? :has_key?
+      location.empty?
     end
 
     def timezone_query_url
