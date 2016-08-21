@@ -18,7 +18,7 @@ module Locotimezone
     private
 
     def location_invalid?
-      return false unless location.respond_to? :has_key?
+      return true unless location.respond_to? :has_key?
       location.empty?
     end
 
@@ -39,7 +39,7 @@ module Locotimezone
     end
 
     def format_results(response)
-      return {} if response['status'] == 'ZERO_RESULTS'
+      return {} if response['timeZoneId'].nil?
       Hash[
         timezone_id: response['timeZoneId'], 
         timezone_name: response['timeZoneName']
