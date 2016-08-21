@@ -1,13 +1,13 @@
 require 'pry'
 module Locotimezone
-  class Location
+  class Geolocate
     attr_reader :address
 
     def initialize(address)
       @address = address
     end
 
-    def geolocate
+    def get_geo
       response = open(geolocation_query_url) { |f| JSON.parse f.read }
     rescue OpenURI::HTTPError
       {}

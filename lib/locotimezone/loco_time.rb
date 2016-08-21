@@ -37,7 +37,7 @@ module Locotimezone
     end 
 
     def get_location
-      results = Location.new(address).geolocate
+      results = Geolocate.new(address).get_geo
       self.location = results[:location] || {}
       results
     end

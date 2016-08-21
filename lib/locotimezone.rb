@@ -1,6 +1,6 @@
 require 'locotimezone/version'
 require 'locotimezone/loco_time'
-require 'locotimezone/location'
+require 'locotimezone/geolocate'
 require 'locotimezone/timezone'
 require 'locotimezone/configuration'
 
