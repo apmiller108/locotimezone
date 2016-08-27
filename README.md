@@ -83,7 +83,7 @@ Locotimezone.locotime location: { lat: 0, lng: 0 }
 ## Options and Setup
 
 `Locotimezone.locotime` can take the following option hash keys:
-* `:address` is a string representation of a street address. This is required except when `timezone_only: true`.
+* `:address` is a string representation of a street address.
 * `:location` is a hash containing the latitude and longitude: `{ lat: 26.1288238, lng: -80.1449743 }`. When passing a location hash, the call to Google Maps Geolocation API is skipped.
 * `:key` is for your Google API key.  This is not required but recommended if you
   want higher API quota. Create an API key and enable APIs in your [Google

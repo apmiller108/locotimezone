@@ -1,13 +1,13 @@
+require 'pry'
 module Locotimezone
-  class Location
-    attr_reader :key, :address
+  class Geolocate
+    attr_reader :address
 
-    def initialize(address, key)
+    def initialize(address)
       @address = address
-      @key     = key
     end
 
-    def geolocate
+    def get_geo
       response = open(geolocation_query_url) { |f| JSON.parse f.read }
     rescue OpenURI::HTTPError
       {}
@@ -18,8 +18,8 @@ module Locotimezone
     private 
 
     def geolocation_query_url
-      'https://maps.googleapis.com/maps/api/geocode/json' + '?key=' + key +
-        '&address=' + address.to_s
+      'https://maps.googleapis.com/maps/api/geocode/json' + '?key=' + 
+        Locotimezone.configuration.google_api_key + '&address=' + address.to_s
     end
 
     def format_results(response)
