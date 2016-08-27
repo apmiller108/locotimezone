@@ -2,6 +2,10 @@ require 'test_helper'
 
 class LocotimezoneErrorsTest < Minitest::Test
 
+  def setup
+    set_configuration
+  end
+
   describe 'testing error handling' do
     it 'must be empty if getting location returns bad request' do
       result = Locotimezone.locotime address: ''

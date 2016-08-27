@@ -7,12 +7,12 @@ class LocotimezoneTest < Minitest::Test
   end
 
   def setup
-    LocotimezoneTest.locotime = LocotimezoneTest.locotime || 
-      Locotimezone.locotime(address: address)
-    LocotimezoneTest.just_location = LocotimezoneTest.just_location || 
-      Locotimezone.locotime(address: address, skip: :timezone)
-    LocotimezoneTest.just_timezone = LocotimezoneTest.just_timezone || 
-      Locotimezone.locotime(location: lat_lng, skip: :location)
+    set_configuration
+    LocotimezoneTest.locotime ||= Locotimezone.locotime(address: address)
+    LocotimezoneTest.just_location ||= Locotimezone.locotime(address: address,
+                                                             skip: :timezone)
+    LocotimezoneTest.just_timezone ||= Locotimezone.locotime(location: lat_lng,
+                                                             skip: :location)
   end
 
   def test_that_it_has_a_version_number

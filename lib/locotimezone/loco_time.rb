@@ -3,14 +3,14 @@ require 'json'
 
 module Locotimezone
   class LocoTime
-    attr_reader :skip, :address, :key
+    attr_reader :skip, :address
     attr_accessor :location
 
-    def initialize(address:, location:, skip:, key:)
+    def initialize(address:, location:, skip:)
       @location      = location
       @address       = address
       @skip          = location ? :location : skip
-      @key           = key || ''
+      set_default_configuration
     end
 
     def transform
@@ -22,21 +22,28 @@ module Locotimezone
 
     private
 
+    def set_default_configuration
+      if Locotimezone.configuration.nil?
+        Locotimezone.configure do |config|
+          config.google_api_key = ' '
+        end
+      end
+    end
+
     def validate_options
       if address.nil? && (skip == :timezone || skip.nil?)
-        raise ArgumentError, 
-          'locotimezone: missing address or location.'
+        raise ArgumentError, 'locotimezone is missing address or location.'
       end
     end 
 
     def get_location
-      results = Location.new(address, key).geolocate
+      results = Geolocate.new(address).get_geo
       self.location = results[:location] || {}
       results
     end
 
     def get_timezone
-      Timezone.new(location, key).timezone
+      Timezone.new(location).timezone
     end
 
     def build_hash(location_data, timezone_data)
@@ -45,6 +52,5 @@ module Locotimezone
       data[:timezone] = timezone_data unless timezone_data.nil?
       data
     end
-
   end
 end
