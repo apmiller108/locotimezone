@@ -3,6 +3,8 @@ require 'locotimezone/loco_time'
 require 'locotimezone/geolocate'
 require 'locotimezone/timezone'
 require 'locotimezone/configuration'
+require 'locotimezone/active_record_helper'
+require 'locotimezone/railtie' if defined?(Rails)
 
 module Locotimezone
 
