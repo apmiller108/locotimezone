@@ -58,4 +58,29 @@ class LocotimezoneActiveRecordHelperTest < Minitest::Test
     end
 
   end
+
+  describe 'sets timezone based on coordinates' do
+    set_configuration
+    it 'sets latitude' do
+      record = Record.new
+      record.save({ location: lat_lng })
+
+      assert_nil record.latitude
+    end
+
+    it 'sets longitude' do
+      record = Record.new
+      record.save({ location: lat_lng })
+
+      assert_nil record.longitude
+    end
+
+    it 'sets timezone_id' do
+      record = Record.new
+      record.save({ location: lat_lng })
+
+      refute_nil record.timezone_id
+    end
+
+  end
 end
