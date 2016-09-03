@@ -23,6 +23,7 @@ module Locotimezone
   def self.configure
     self.configuration ||= Configuration.new 
     yield configuration if block_given?
+    self
   end
 
   def self.reset_configuration
