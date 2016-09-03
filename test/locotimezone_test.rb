@@ -1,58 +1,92 @@
 require 'test_helper'
 
 class LocotimezoneTest < Minitest::Test
-  
-  class << self
-    attr_accessor :locotime, :just_location, :just_timezone
-  end
-
-  def setup
-    set_configuration
-    LocotimezoneTest.locotime ||= Locotimezone.locotime(address: address)
-    LocotimezoneTest.just_location ||= Locotimezone.locotime(address: address,
-                                                             skip: :timezone)
-    LocotimezoneTest.just_timezone ||= Locotimezone.locotime(location: lat_lng,
-                                                             skip: :location)
-  end
 
   def test_that_it_has_a_version_number
     refute_nil ::Locotimezone::VERSION
   end
 
   def test_that_it_has_correct_formatted_address
-    assert_equal '525 NW 1st Ave, Fort Lauderdale, FL 33301, USA', 
-      self.class.locotime[:geo][:formatted_address]
+    stub_any_instance(Locotimezone::Geolocate, :get_geo, get_geo_results) do
+      stub_any_instance(Locotimezone::Timezone, 
+                        :timezone, 
+                        get_timezone_results) do
+        result = Locotimezone.locotime address: address
+
+        assert_equal('525 NW 1st Ave, Fort Lauderdale, FL 33301, USA', 
+                     result[:geo][:formatted_address])
+      end
+    end
   end
 
   def test_that_it_has_correct_geolocation
-    assert_equal 26.1288238, self.class.locotime[:geo][:location][:lat]
-    assert_equal -80.1449743, self.class.locotime[:geo][:location][:lng]
+    stub_any_instance(Locotimezone::Geolocate, :get_geo, get_geo_results) do
+      stub_any_instance(Locotimezone::Timezone, 
+                        :timezone, 
+                        get_timezone_results) do
+        result = Locotimezone.locotime address: address
+
+        assert_equal 26.1288238, result[:geo][:location][:lat]
+        assert_equal -80.1449743, result[:geo][:location][:lng]
+      end
+    end
   end
 
   def test_that_it_has_correct_timezone_id
-    assert_equal 'America/New_York', self.class.locotime[:timezone][:timezone_id]
+    stub_any_instance(Locotimezone::Geolocate, :get_geo, get_geo_results) do
+      stub_any_instance(Locotimezone::Timezone, 
+                        :timezone, 
+                        get_timezone_results) do
+        result = Locotimezone.locotime address: address
+
+        assert_equal 'America/New_York', result[:timezone][:timezone_id]
+      end
+    end
   end
 
   def test_that_it_only_returns_location
-    refute_nil self.class.just_location[:geo]
-    assert_nil self.class.just_location[:timezone]
+    stub_any_instance(Locotimezone::Geolocate, :get_geo, get_geo_results) do
+      stub_any_instance(Locotimezone::Timezone, 
+                        :timezone, 
+                        get_timezone_results) do
+        result = Locotimezone.locotime address: address, skip: :timezone
+
+        refute_nil result[:geo]
+        assert_nil result[:timezone]
+      end
+    end
   end
 
   def test_that_it_only_returns_timezone
-    assert_nil self.class.just_timezone[:geo]
-    refute_nil self.class.just_timezone[:timezone]
+    stub_any_instance(Locotimezone::Geolocate, :get_geo, get_geo_results) do
+      stub_any_instance(Locotimezone::Timezone, 
+                        :timezone, 
+                        get_timezone_results) do
+        result = Locotimezone.locotime location: location
+
+        assert_nil result[:geo]
+        refute_nil result[:timezone]
+      end
+    end
   end
 
   def test_that_it_is_empty_if_bad_request
-    result = Locotimezone.locotime address: ''
-    assert true, result[:geo].empty?
-    assert true, result[:timezone].empty?
+    error = Class.new(OpenURI::HTTPError)
+    File.stub :open, error do
+      result = Locotimezone.locotime address: 'bad stuff'
+
+      assert true, result[:geo].empty?
+      assert true, result[:timezone].empty?
+    end
   end
 
   def test_that_it_is_empty_if_no_location_found
-    result = Locotimezone.locotime address: '%'
-    assert true, result[:geo].empty?
-    assert true, result[:timezone].empty?
-  end
+    empty_response = { 'results' => {} }
+    stub_any_instance Locotimezone::Geolocate, :get_geo, empty_response do
+      result = Locotimezone.locotime address: 'fake address'
 
+      assert true, result[:geo].empty?
+      assert true, result[:timezone].empty?
+    end
+  end
 end
