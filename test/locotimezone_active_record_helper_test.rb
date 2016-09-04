@@ -103,4 +103,7 @@ class LocotimezoneActiveRecordHelperTest < Minitest::Test
       end
     end
   end
+
+  describe 'handling missing attributes' do
+  end
 end

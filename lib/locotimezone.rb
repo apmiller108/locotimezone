@@ -13,6 +13,7 @@ module Locotimezone
   end
 
   def self.locotime(options = {})
+    set_default_configuration
     LocoTime.new(
       location: options.fetch(:location, nil),
       address: options.fetch(:address, nil), 
@@ -30,4 +31,11 @@ module Locotimezone
     self.configuration = Configuration.new
   end
 
+  def self.set_default_configuration
+    if Locotimezone.configuration.nil?
+      Locotimezone.configure do |config|
+        config.google_api_key = ' '
+      end
+    end
+  end
 end

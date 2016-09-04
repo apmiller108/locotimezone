@@ -13,7 +13,7 @@ end
 
 def set_configuration
   Locotimezone.configure do |config| 
-    config.google_api_key = ENV['GOOGLE_API_KEY']
+    config.google_api_key = 'fake_api_key'
   end
 end
 

@@ -19,6 +19,8 @@ class LocotimezoneConfigurationTest < Minitest::Test
       Locotimezone.reset_configuration
 
       assert_nil Locotimezone.configuration.google_api_key
+
+      set_configuration
     end
   end
 end
