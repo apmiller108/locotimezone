@@ -37,7 +37,7 @@ end
 You could use a callback to set the following attributes on your model:
 `:latitude`, `:longitude`, and `:timezone_id`.  Most likely, the address data
 will be in stored separate fields, so create method that aggregates the address
-information.  For example:
+information.  For more options, see [detailed usage](#detailed-usage).
 
 ```ruby
 # app/models/user.rb
@@ -69,7 +69,7 @@ end
 ```
 
 
-## Usage
+## Detailed Usage
 First, set your [Google API
 key](https://developers.google.com/maps/documentation/geocoding/get-api-key):
 
