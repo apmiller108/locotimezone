@@ -3,14 +3,12 @@
 [![Build Status](https://travis-ci.org/apmiller108/locotimezone.svg?branch=active-model-integration)](https://travis-ci.org/apmiller108/locotimezone)
 
 # Locotimezone
-
 Transform a street address into geoloction and timezone data. Essentially, this
 is an adapter for the [Google Maps Time Zone API](https://developers.google.com/maps/documentation/timezone/intro) and the [The Google Maps Geolocation API](https://developers.google.com/maps/documentation/geolocation/intro).
 
 All requests to the Google APIs are done over SSL.
 
 ## Installation
-
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -25,7 +23,61 @@ Or install it yourself as:
 
     $ gem install locotimezone
 
+## Rails Usage 
+Setup an initializer. It might look something like this:
+
+```ruby
+# config/initializers/locotimezone.rb
+
+Locotimezone.configure do |config|
+  config.google_api_key = ENV['GOOGLE_API_KEY']
+end
+```
+
+You could use a callback to set the following attributes on your model:
+`:latitude`, `:longitude`, and `:timezone_id`.  Most likely, the address data
+will be in stored separate fields, so create method that aggregates the address
+information.  For example:
+
+```ruby
+# app/models/user.rb
+
+class User < ApplicationRecord
+  after_validation -> { locotime address: address }
+
+  def address
+    [street, city, region, postal_code, country].join(' ')
+  end
+end
+```
+
+The default model attributes are `:latitude`, `:longitude`, and `:timezone_id`.  
+You can override the defaults and setup your own default attribute names in the 
+configuration block. 
+
+```ruby
+# config/initializers/locotimezone.rb
+
+Locotimezone.configure do |config|
+  config.google_api_key = ENV['GOOGLE_API_KEY']
+  config.attributes = {
+    latitude: :lat,
+    longitude: :lng,
+    timezone_id: :tz_id
+  }
+end
+```
+
+
 ## Usage
+First, set your [Google API
+key](https://developers.google.com/maps/documentation/geocoding/get-api-key):
+
+```ruby
+Locotimezone.configure do |config|
+  config.google_api_key = 'YOUR_API_KEY' 
+end
+```
 Geolocate and get timezone details:
 
 ```ruby
