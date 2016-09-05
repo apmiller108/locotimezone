@@ -8,10 +8,23 @@ class Record < Struct.new(:latitude, :longitude, :timezone_id)
   end
 end
 
+class RecordWithoutAttributes
+  include Locotimezone::ActiveRecordHelper
+
+  def save(options)
+    locotime options
+  end
+end
+
 class LocotimezoneActiveRecordHelperTest < Minitest::Test
+
+  def setup
+    set_configuration
+  end
 
   describe 'sets location and timezone attributes' do 
     it 'sets latitude' do
+      # set_configuration
       Locotimezone.stub :locotime, full_results do
         record = Record.new
         record.save({ address: address })
@@ -21,6 +34,7 @@ class LocotimezoneActiveRecordHelperTest < Minitest::Test
     end
 
     it 'sets longitude' do
+      # set_configuration
       Locotimezone.stub :locotime, full_results do
         record = Record.new
         record.save({ address: address })
@@ -30,6 +44,7 @@ class LocotimezoneActiveRecordHelperTest < Minitest::Test
     end
 
     it 'sets timezone_id' do
+      # set_configuration
       Locotimezone.stub :locotime, full_results do
         record = Record.new
         record.save({ address: address })
@@ -104,6 +119,27 @@ class LocotimezoneActiveRecordHelperTest < Minitest::Test
     end
   end
 
+  describe 'handle empty results' do
+
+    it 'does not raise an NoMethodError' do
+      set_configuration
+      Locotimezone.stub :locotime, { geo: {}, timezone: {} } do
+        record = RecordWithoutAttributes.new
+
+        record.save address: address
+      end
+    end
+  end
+
   describe 'handling missing attributes' do
+
+    it 'does not raise an NoMethodError' do
+      set_configuration
+      Locotimezone.stub :locotime, full_results do
+        record = RecordWithoutAttributes.new
+
+        record.save address: address
+      end
+    end
   end
 end

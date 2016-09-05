@@ -12,6 +12,7 @@ def lat_lng
 end
 
 def set_configuration
+  Locotimezone.reset_configuration
   Locotimezone.configure do |config| 
     config.google_api_key = 'fake_api_key'
   end
