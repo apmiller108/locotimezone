@@ -18,13 +18,13 @@ end
 
 class LocotimezoneActiveRecordHelperTest < Minitest::Test
 
-  def setup
-    set_configuration
-  end
-
   describe 'sets location and timezone attributes' do 
+
+    before do
+      set_configuration
+    end
+
     it 'sets latitude' do
-      # set_configuration
       Locotimezone.stub :locotime, full_results do
         record = Record.new
         record.save({ address: address })
@@ -34,7 +34,6 @@ class LocotimezoneActiveRecordHelperTest < Minitest::Test
     end
 
     it 'sets longitude' do
-      # set_configuration
       Locotimezone.stub :locotime, full_results do
         record = Record.new
         record.save({ address: address })
@@ -44,7 +43,6 @@ class LocotimezoneActiveRecordHelperTest < Minitest::Test
     end
 
     it 'sets timezone_id' do
-      # set_configuration
       Locotimezone.stub :locotime, full_results do
         record = Record.new
         record.save({ address: address })
@@ -55,6 +53,11 @@ class LocotimezoneActiveRecordHelperTest < Minitest::Test
   end
 
   describe 'sets location and skips timezone' do
+
+    before do
+      set_configuration
+    end
+
     it 'sets latitude' do
       stub_any_instance(Locotimezone::Geolocate, :get_geo, get_geo_results) do
         record = Record.new
@@ -85,6 +88,11 @@ class LocotimezoneActiveRecordHelperTest < Minitest::Test
   end
 
   describe 'sets timezone based on coordinates' do
+
+    before do
+      set_configuration
+    end
+
     it 'does not set latitude' do
       stub_any_instance(Locotimezone::Timezone, 
                         :timezone, 
@@ -121,8 +129,11 @@ class LocotimezoneActiveRecordHelperTest < Minitest::Test
 
   describe 'handle empty results' do
 
-    it 'does not raise an NoMethodError' do
+    before do
       set_configuration
+    end
+
+    it 'does not raise an NoMethodError' do
       Locotimezone.stub :locotime, { geo: {}, timezone: {} } do
         record = RecordWithoutAttributes.new
 
@@ -133,8 +144,11 @@ class LocotimezoneActiveRecordHelperTest < Minitest::Test
 
   describe 'handling missing attributes' do
 
-    it 'does not raise an NoMethodError' do
+    before do
       set_configuration
+    end
+
+    it 'does not raise an NoMethodError' do
       Locotimezone.stub :locotime, full_results do
         record = RecordWithoutAttributes.new
 

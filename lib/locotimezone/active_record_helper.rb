@@ -7,25 +7,33 @@ module Locotimezone
      timezone_attribute data[:timezone] unless data[:timezone].nil?
    end
 
-   def geolocation_attributes(geo_data)
-     save_latitude geo_data[:location][:lat]
-     save_longitude geo_data[:location][:lng]
+   def geolocation_attributes(geolocation_data)
+     return nil if geolocation_data.empty?
+     geolocation_data[:location].each do |key, value|
+       attribute = :latitude
+       attribute = :longitude if key == :lng
+       save_attribute(attribute, value)
+     end
    end
 
    def timezone_attribute(timezone_data)
-     send("#{attributes[:timezone_id]}=", timezone_data[:timezone_id])
+     return nil if timezone_data.empty?
+     save_attribute(:timezone_id, timezone_data[:timezone_id])
    end
 
-   def save_latitude(lat)
-     send("#{attributes[:latitude]}=", lat)
+   def save_attribute(attribute, value)
+     if self.respond_to? attr_writers[attribute]
+      send attr_writers[attribute], value
+     end
+
    end
 
-   def save_longitude(lng)
-     send("#{attributes[:longitude]}=", lng)
-   end
-
-   def attributes
-     Locotimezone.configuration.attributes
+   def attr_writers
+     attrs = {}
+     Locotimezone.configuration.attributes.each do |key, value|
+       attrs[key] = "#{value}="
+     end
+     attrs
    end
   end
 end

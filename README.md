@@ -37,7 +37,7 @@ end
 You could use a callback to set the following attributes on your model:
 `:latitude`, `:longitude`, and `:timezone_id`.  Most likely, the address data
 will be in stored separate fields, so create method that aggregates the address
-information.  For more options, see [detailed usage](#detailed-usage).
+information.  For more options, see [detailed usage](#detailed-usage) below.
 
 ```ruby
 # app/models/user.rb
