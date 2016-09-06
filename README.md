@@ -144,6 +144,7 @@ Locotimezone.locotime location: { lat: 0, lng: 0 }
 
 ## Setup
 
+`Locotimezone.configuration` takes a block where the following can be setup:
 * `google_api_key`. Create an API key and enable APIs in your [Google
   Developer Console](https://console.developers.google.com).
 * `attributes`.  For overriding the default attribute names used for Rails models.
