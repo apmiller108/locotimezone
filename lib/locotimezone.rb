@@ -34,7 +34,7 @@ module Locotimezone
   def self.set_default_configuration
     if Locotimezone.configuration.nil?
       Locotimezone.configure do |config|
-        config.google_api_key = ' '
+        config.google_api_key = ''
       end
     end
   end
