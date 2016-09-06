@@ -34,16 +34,16 @@ Locotimezone.configure do |config|
 end
 ```
 
-You could use a callback to set the following attributes on your model:
+You can use a callback to set the following attributes on your model:
 `:latitude`, `:longitude`, and `:timezone_id`.  Most likely, the address data
 will be in stored separate fields, so create method that aggregates the address
-information.  For more options, see [detailed usage](#detailed-usage) below.
+information into a single string.  For more options, see [detailed usage](#detailed-usage) below.
 
 ```ruby
 # app/models/user.rb
 
 class User < ApplicationRecord
-  after_validation -> { locotime address: address }
+  after_validation -> { locotime address: address } 
 
   def address
     [street, city, region, postal_code, country].join(' ')
@@ -106,7 +106,7 @@ Locotimezone.locotime address: address, skip: :timezone
 #      :location=>{:lat=>26.1288238, :lng=>-80.1449743}}}
 ```
 
-If you alredy have latitude and longitude, and you're only interested in getting
+If you already have latitude and longitude, and you're only interested in getting
 the timezone data, just pass your own location hash like so:
 
 ```ruby
@@ -134,17 +134,21 @@ Locotimezone.locotime location: { lat: 0, lng: 0 }
 # {:timezone=>{}}
 ```
 
-## Options and Setup
+## Options
 
 `Locotimezone.locotime` can take the following option hash keys:
 * `:address` is a string representation of a street address.
 * `:location` is a hash containing the latitude and longitude: `{ lat: 26.1288238, lng: -80.1449743 }`. When passing a location hash, the call to Google Maps Geolocation API is skipped.
-* `:key` is for your Google API key.  This is not required but recommended if you
-  want higher API quota. Create an API key and enable APIs in your [Google
-  Developer Console](https://console.developers.google.com). As an alternative
-  to passing the `:key` everytime, simply set `GOOGLE_API_KEY` environment variable.
 * `skip: :timezone` skips the call to Google Maps Timezone API. For geolocation,
-  only.
+  only
+
+## Setup
+
+* `google_api_key`. Create an API key and enable APIs in your [Google
+  Developer Console](https://console.developers.google.com).
+* `attributes`.  For overriding the default attribute names used for Rails models.
+  The defaults are `:latitude`, `:longitude`, and `:timezone_id`. See example
+  above under [Rails usage](#rails-usage)
 
 ## Command Line Utility
 
@@ -183,4 +187,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/apmill
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-

@@ -25,7 +25,6 @@ module Locotimezone
      if self.respond_to? attr_writers[attribute]
       send attr_writers[attribute], value
      end
-
    end
 
    def attr_writers
