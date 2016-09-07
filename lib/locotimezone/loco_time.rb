@@ -10,7 +10,6 @@ module Locotimezone
       @location      = location
       @address       = address
       @skip          = location ? :location : skip
-      set_default_configuration
     end
 
     def transform
@@ -21,14 +20,6 @@ module Locotimezone
     end
 
     private
-
-    def set_default_configuration
-      if Locotimezone.configuration.nil?
-        Locotimezone.configure do |config|
-          config.google_api_key = ' '
-        end
-      end
-    end
 
     def validate_options
       if address.nil? && (skip == :timezone || skip.nil?)

@@ -18,8 +18,8 @@ module Locotimezone
     private 
 
     def geolocation_query_url
-      'https://maps.googleapis.com/maps/api/geocode/json' + '?key=' + 
-        Locotimezone.configuration.google_api_key + '&address=' + address.to_s
+      'https://maps.googleapis.com/maps/api/geocode/json' + '?address=' + 
+        address.to_s + '&key=' + Locotimezone.configuration.google_api_key
     end
 
     def format_results(response)
