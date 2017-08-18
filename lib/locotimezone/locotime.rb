@@ -2,7 +2,7 @@ require 'open-uri'
 require 'json'
 
 module Locotimezone
-  class LocoTime
+  class Locotime
     attr_reader :skip, :address
     attr_accessor :location
 
@@ -12,7 +12,7 @@ module Locotimezone
       @skip          = location ? :location : skip
     end
 
-    def transform
+    def call
       validate_options
       location_data = get_location unless skip == :location
       timezone_data = get_timezone unless skip == :timezone
@@ -34,7 +34,7 @@ module Locotimezone
     end
 
     def get_timezone
-      Timezone.new(location).timezone
+      Timezone.new(location).call
     end
 
     def build_hash(location_data, timezone_data)

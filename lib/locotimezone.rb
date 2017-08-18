@@ -1,5 +1,5 @@
 require 'locotimezone/version'
-require 'locotimezone/loco_time'
+require 'locotimezone/locotime'
 require 'locotimezone/geolocate'
 require 'locotimezone/timezone'
 require 'locotimezone/configuration'
@@ -14,9 +14,9 @@ module Locotimezone
   def self.locotime(options = {})
     puts configuration
     set_default_configuration if configuration.nil?
-    LocoTime.new(location: options.fetch(:location, nil),
+    Locotime.new(location: options.fetch(:location, nil),
                  address: options.fetch(:address, nil),
-                 skip: options.fetch(:skip, nil)).transform
+                 skip: options.fetch(:skip, nil)).call
   end
 
   def self.configure
