@@ -25,10 +25,10 @@ module Locotimezone
       if address.nil? && (skip == :timezone || skip.nil?)
         raise ArgumentError, 'locotimezone is missing address or location.'
       end
-    end 
+    end
 
     def get_location
-      results = Geolocate.new(address).get_geo
+      results = Geolocate.new(address).call
       self.location = results[:location] || {}
       results
     end
