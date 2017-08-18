@@ -1,12 +1,10 @@
-[![Code Triagers Badge](https://www.codetriage.com/apmiller108/locotimezone/badges/users.svg)](https://www.codetriage.com/apmiller108/locotimezone)
-
 [![Build Status](https://travis-ci.org/apmiller108/locotimezone.svg?branch=active-model-integration)](https://travis-ci.org/apmiller108/locotimezone)
 
 # Locotimezone
 Transform a street address into geoloction and timezone data. Essentially, this
 is an adapter for the [Google Maps Time Zone API](https://developers.google.com/maps/documentation/timezone/intro) and the [The Google Maps Geolocation API](https://developers.google.com/maps/documentation/geolocation/intro).
 
-All requests to the Google APIs are done over SSL.
+All requests to the Google APIs are done over HTTPS.
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -146,7 +144,9 @@ Locotimezone.locotime location: { lat: 0, lng: 0 }
 
 `Locotimezone.configuration` takes a block where the following can be setup:
 * `google_api_key`. Create an API key and enable APIs in your [Google
-  Developer Console](https://console.developers.google.com).
+  Developer Console](https://console.developers.google.com). You will also need to enable 
+  Google Maps Geocoding API and Google Maps Time Zone API. While using an API key is optional,
+  it's recommended since you will get larger request quota.
 * `attributes`.  For overriding the default attribute names used for Rails models.
   The defaults are `:latitude`, `:longitude`, and `:timezone_id`. See example
   above under [Rails usage](#rails-usage)
