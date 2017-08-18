@@ -1,0 +1,103 @@
+{
+    "results": [
+        {
+            "address_components": [
+                {
+                    "long_name": "525",
+                    "short_name": "525",
+                    "types": [
+                        "street_number"
+                    ]
+                },
+                {
+                    "long_name": "Northwest 1st Avenue",
+                    "short_name": "NW 1st Ave",
+                    "types": [
+                        "route"
+                    ]
+                },
+                {
+                    "long_name": "Central Fort Lauderdale",
+                    "short_name": "Central Fort Lauderdale",
+                    "types": [
+                        "neighborhood",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Fort Lauderdale",
+                    "short_name": "Fort Lauderdale",
+                    "types": [
+                        "locality",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Broward County",
+                    "short_name": "Broward County",
+                    "types": [
+                        "administrative_area_level_2",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Florida",
+                    "short_name": "FL",
+                    "types": [
+                        "administrative_area_level_1",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "United States",
+                    "short_name": "US",
+                    "types": [
+                        "country",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "33301",
+                    "short_name": "33301",
+                    "types": [
+                        "postal_code"
+                    ]
+                }
+            ],
+            "formatted_address": "525 NW 1st Ave, Fort Lauderdale, FL 33301, USA",
+            "geometry": {
+                "bounds": {
+                    "northeast": {
+                        "lat": 26.1289674,
+                        "lng": -80.1447997
+                    },
+                    "southwest": {
+                        "lat": 26.12868,
+                        "lng": -80.1451524
+                    }
+                },
+                "location": {
+                    "lat": 26.1288237,
+                    "lng": -80.144976
+                },
+                "location_type": "ROOFTOP",
+                "viewport": {
+                    "northeast": {
+                        "lat": 26.1301726802915,
+                        "lng": -80.14362706970849
+                    },
+                    "southwest": {
+                        "lat": 26.1274747197085,
+                        "lng": -80.14632503029151
+                    }
+                }
+            },
+            "partial_match": true,
+            "place_id": "ChIJ06J8LwAB2YgRJZUgN9B4O8U",
+            "types": [
+                "premise"
+            ]
+        }
+    ],
+    "status": "OK"
+}

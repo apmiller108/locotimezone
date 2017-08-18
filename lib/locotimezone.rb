@@ -7,22 +7,20 @@ require 'locotimezone/active_record_helper'
 require 'locotimezone/railtie' if defined?(Rails)
 
 module Locotimezone
-
   class << self
     attr_accessor :configuration
   end
 
   def self.locotime(options = {})
-    set_default_configuration
-    LocoTime.new(
-      location: options.fetch(:location, nil),
-      address: options.fetch(:address, nil), 
-      skip: options.fetch(:skip, nil)
-    ).transform
+    puts configuration
+    set_default_configuration if configuration.nil?
+    LocoTime.new(location: options.fetch(:location, nil),
+                 address: options.fetch(:address, nil),
+                 skip: options.fetch(:skip, nil)).transform
   end
 
   def self.configure
-    self.configuration ||= Configuration.new 
+    self.configuration ||= Configuration.new
     yield configuration if block_given?
     self
   end
@@ -32,10 +30,6 @@ module Locotimezone
   end
 
   def self.set_default_configuration
-    if Locotimezone.configuration.nil?
-      Locotimezone.configure do |config|
-        config.google_api_key = ''
-      end
-    end
+    Locotimezone.configure { |config| config.google_api_key = '' }
   end
 end

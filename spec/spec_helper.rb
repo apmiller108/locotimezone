@@ -1,4 +1,6 @@
 require 'locotimezone'
+require 'webmock/rspec'
+require_relative 'helpers/api_responses'
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
