@@ -87,6 +87,22 @@ describe Locotimezone do
           expect(subject[:geo]).to be nil
         end
       end
+
+      context 'without address or location' do
+        it 'raises an ArgumentError' do
+          expect { Locotimezone.locotime }.to(
+            raise_error(ArgumentError, 'locotimezone is missing address or location.')
+          )
+        end
+      end
+
+      context 'when location included and it is nil' do
+        it 'raises an ArgumentError' do
+          expect { Locotimezone.locotime }.to(
+            raise_error(ArgumentError, 'locotimezone is missing address or location.')
+          )
+        end
+      end
     end
   end
 end
