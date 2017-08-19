@@ -1,17 +1,14 @@
 module ApiResponses
   BASE_PATH = %w[spec helpers api_responses].freeze
+  RESPONSE_TYPES = %w[valid_geolocation valid_timezone]
 
-  def valid_geolocation_response
-    read_file File.join(*BASE_PATH, 'valid_geolocation_response.json')
+  def self.define_responses
+    RESPONSE_TYPES.each do |response_type|
+      define_method("#{response_type}_response") do
+        File.read(File.join(*BASE_PATH, "#{response_type}_response.json"), &:read)
+      end
+    end
   end
 
-  def valid_timezone_response
-    read_file File.join(*BASE_PATH, 'valid_timezone_response.json')
-  end
-
-  private
-
-  def read_file(path)
-    File.read(path, &:read)
-  end
+  define_responses
 end
