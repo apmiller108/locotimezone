@@ -57,7 +57,7 @@ describe Locotimezone::ActiveRecordHelper do
     end
   end
 
-  context 'with overridden attribute name' do
+  context 'with overridden attribute names' do
     before :each do
       ActiveRecord::Schema.define do
         create_table :users, force: true do |t|
@@ -77,6 +77,8 @@ describe Locotimezone::ActiveRecordHelper do
       User.create
     end
 
+    after(:each) { Locotimezone.reset_configuration }
+
     let(:user) { User.take }
 
     it 'persists the latitude' do
@@ -89,6 +91,38 @@ describe Locotimezone::ActiveRecordHelper do
 
     it 'persists the timezone data' do
       expect(user.tz_id).to eq 'America/New_York'
+    end
+  end
+
+  context 'when configured with invalid attribute names' do
+    before :each do
+      ActiveRecord::Schema.define do
+        create_table :users, force: true do |t|
+          t.string :latitude
+          t.string :longitude
+          t.string :timezone_id
+        end
+      end
+
+      Locotimezone.configure do |config|
+        config.attributes = {
+          latitude: :lat,
+          longitude: :lng,
+          timezone_id: :tz_id
+        }
+      end
+    end
+
+    it 'will not raise UnknownAttributeError' do
+      expect { User.create }.to_not raise_error
+    end
+
+    it 'will not save the attributes' do
+      user = User.create
+
+      expect(user.latitude).to be nil
+      expect(user.longitude).to be nil
+      expect(user.timezone_id).to be nil
     end
   end
 end

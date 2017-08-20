@@ -64,7 +64,7 @@ describe 'Configuring Locotimezone' do
     end
 
     it 'clears the API key' do
-      expect(subject.configuration.google_api_key).to be nil
+      expect(subject.configuration.google_api_key).to eq ''
     end
 
     it 'resets the attributes back to the defaults' do
