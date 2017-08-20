@@ -12,7 +12,6 @@ module Locotimezone
   end
 
   def self.locotime(options = {})
-    puts configuration
     set_default_configuration if configuration.nil?
     Locotime.new(location: options.fetch(:location, nil),
                  address: options.fetch(:address, nil),

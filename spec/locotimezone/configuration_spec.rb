@@ -14,6 +14,7 @@ describe 'Configuring Locotimezone' do
   end
 
   before :each do
+    subject.reset_configuration
     subject.configure { |config| config.google_api_key = '123' }
   end
 
