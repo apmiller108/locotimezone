@@ -6,7 +6,7 @@ module Locotimezone
       @location = location
     end
 
-    def timezone
+    def call
       return {} if location_invalid?
       response = open(timezone_query_url) { |f| JSON.parse f.read }
     rescue OpenURI::HTTPError

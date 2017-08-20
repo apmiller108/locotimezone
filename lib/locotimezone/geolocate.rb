@@ -6,7 +6,7 @@ module Locotimezone
       @address = address
     end
 
-    def get_geo
+    def call
       response = open(geolocation_query_url) { |f| JSON.parse f.read }
     rescue OpenURI::HTTPError
       {}
@@ -14,11 +14,11 @@ module Locotimezone
       format_results response
     end
 
-    private 
+    private
 
     def geolocation_query_url
-      'https://maps.googleapis.com/maps/api/geocode/json' + '?address=' + 
-        address.to_s + '&key=' + Locotimezone.configuration.google_api_key
+      "https://maps.googleapis.com/maps/api/geocode/json?address="\
+      "#{address}&key=#{Locotimezone.configuration.google_api_key}"
     end
 
     def format_results(response)
@@ -30,8 +30,7 @@ module Locotimezone
     end
 
     def symbolize_keys(response)
-      response.map { |k,v| [k.to_sym, v] }.to_h
+      response.map { |k, v| [k.to_sym, v] }.to_h
     end
-
   end
 end
