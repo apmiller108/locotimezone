@@ -14,9 +14,7 @@ module Locotimezone
 
     def call
       validate_options
-      location_data = geolocate unless skip == :location
-      timezone_data = timezone unless skip == :timezone
-      build_hash(location_data, timezone_data)
+      ResultsFormatter.build_hash_for(geolocation, timezone)
     end
 
     private
@@ -29,21 +27,16 @@ module Locotimezone
       address.nil? && (skip == :timezone || skip.nil?)
     end
 
-    def geolocate
+    def geolocation
+      return if skip == :location
       results = Geolocate.new(address).call
-      self.location = results[:location] || {}
+      @location = results[:location] || {}
       results
     end
 
     def timezone
+      return if skip == :timezone
       Timezone.new(location).call
-    end
-
-    def build_hash(location_data, timezone_data)
-      data = Hash.new
-      data[:geo]      = location_data unless location_data.nil?
-      data[:timezone] = timezone_data unless timezone_data.nil?
-      data
     end
   end
 end
