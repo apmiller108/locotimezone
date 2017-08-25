@@ -21,17 +21,15 @@ module Locotimezone
     end
 
     def save_attribute(attribute, value)
-      if self.respond_to? attr_writers[attribute]
+      if respond_to? attr_writers[attribute]
         send attr_writers[attribute], value
       end
     end
 
     def attr_writers
-      attrs = {}
-      Locotimezone.configuration.attributes.each do |key, value|
-        attrs[key] = "#{value}="
+      Locotimezone.configuration.attributes.each_with_object({}) do |(key, value), hash|
+        hash[key] = "#{value}="
       end
-      attrs
     end
   end
 end
