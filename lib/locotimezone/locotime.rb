@@ -7,33 +7,35 @@ module Locotimezone
     attr_accessor :location
 
     def initialize(address:, location:, skip:)
-      @location      = location
-      @address       = address
-      @skip          = location ? :location : skip
+      @location = location
+      @address = address
+      @skip = location ? :location : skip
     end
 
     def call
       validate_options
-      location_data = get_location unless skip == :location
-      timezone_data = get_timezone unless skip == :timezone
+      location_data = geolocate unless skip == :location
+      timezone_data = timezone unless skip == :timezone
       build_hash(location_data, timezone_data)
     end
 
     private
 
     def validate_options
-      if address.nil? && (skip == :timezone || skip.nil?)
-        raise ArgumentError, 'locotimezone is missing address or location.'
-      end
+      raise InvalidOptionsError if options_invalid?
     end
 
-    def get_location
+    def options_invalid?
+      address.nil? && (skip == :timezone || skip.nil?)
+    end
+
+    def geolocate
       results = Geolocate.new(address).call
       self.location = results[:location] || {}
       results
     end
 
-    def get_timezone
+    def timezone
       Timezone.new(location).call
     end
 

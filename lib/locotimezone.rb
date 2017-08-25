@@ -2,6 +2,7 @@ require 'locotimezone/version'
 require 'locotimezone/locotime'
 require 'locotimezone/geolocate'
 require 'locotimezone/timezone'
+require 'locotimezone/errors'
 require 'locotimezone/configuration'
 require 'locotimezone/active_record_helper'
 require 'locotimezone/railtie' if defined?(Rails)
@@ -13,9 +14,9 @@ module Locotimezone
 
   def self.locotime(options = {})
     configure_with_defaults if configuration.nil?
-    Locotime.new(location: options.fetch(:location, nil),
-                 address: options.fetch(:address, nil),
-                 skip: options.fetch(:skip, nil)).call
+    Locotime.new(location: options[:location],
+                 address: options[:address],
+                 skip: options[:skip]).call
   end
 
   def self.configure
