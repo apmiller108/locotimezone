@@ -12,7 +12,7 @@ module Locotimezone
     end
 
     def attributes=(value)
-      return unless value.respond_to? :has_key
+      return unless value.respond_to? :has_key?
       @attributes = attributes.merge value
     end
   end
