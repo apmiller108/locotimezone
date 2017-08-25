@@ -2,6 +2,8 @@ require 'locotimezone/version'
 require 'locotimezone/locotime'
 require 'locotimezone/geolocate'
 require 'locotimezone/timezone'
+require 'locotimezone/errors'
+require 'locotimezone/results_formatter'
 require 'locotimezone/configuration'
 require 'locotimezone/active_record_helper'
 require 'locotimezone/railtie' if defined?(Rails)
@@ -12,10 +14,10 @@ module Locotimezone
   end
 
   def self.locotime(options = {})
-    set_default_configuration if configuration.nil?
-    Locotime.new(location: options.fetch(:location, nil),
-                 address: options.fetch(:address, nil),
-                 skip: options.fetch(:skip, nil)).call
+    configure_with_defaults if configuration.nil?
+    Locotime.new(location: options[:location],
+                 address: options[:address],
+                 skip: options[:skip]).call
   end
 
   def self.configure
@@ -26,10 +28,10 @@ module Locotimezone
 
   def self.reset_configuration
     self.configuration = Configuration.new
-    set_default_configuration
+    configure_with_defaults
   end
 
-  def self.set_default_configuration
+  def self.configure_with_defaults
     Locotimezone.configure { |config| config.google_api_key = '' }
   end
 end
