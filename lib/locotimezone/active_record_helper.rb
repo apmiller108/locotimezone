@@ -1,10 +1,15 @@
 module Locotimezone
   module ActiveRecordHelper
+
     def locotime(options = {})
-      data = Locotimezone.locotime(options)
-      geolocation_attributes data[:geo] unless data[:geo].nil?
-      timezone_attribute data[:timezone] unless data[:timezone].nil?
+      Locotimezone.locotime(options)
     end
+
+    # def locotime(options = {})
+    #   data = Locotimezone.locotime(options)
+    #   geolocation_attributes data[:geo] unless data[:geo].nil?
+    #   timezone_attribute data[:timezone] unless data[:timezone].nil?
+    # end
 
     def geolocation_attributes(geolocation_data)
       return nil if geolocation_data.empty?
@@ -23,12 +28,6 @@ module Locotimezone
     def save_attribute(attribute, value)
       if respond_to? attr_writers[attribute]
         send attr_writers[attribute], value
-      end
-    end
-
-    def attr_writers
-      Locotimezone.configuration.attributes.each_with_object({}) do |(key, value), hash|
-        hash[key] = "#{value}="
       end
     end
   end
