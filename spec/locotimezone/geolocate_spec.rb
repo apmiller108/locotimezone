@@ -37,9 +37,12 @@ describe Locotimezone::Geolocate do
     end
 
     context '400 response' do
+      let(:logger) { Logger.new(STDOUT) }
+
       before :each do
-        stub_request(:get, /maps\/api\/geocode/)
-          .to_return(status: 400)
+        stub_request(:get, /maps\/api\/geocode/).to_return(status: 400)
+        allow(Logger).to receive(:new).and_return(logger)
+        allow(logger).to receive(:error)
       end
 
       it 'returns a hash' do
