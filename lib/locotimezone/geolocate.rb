@@ -8,7 +8,8 @@ module Locotimezone
 
     def call
       ResultsFormatter.build_geolocation_hash_for geolocation
-    rescue OpenURI::HTTPError
+    rescue OpenURI::HTTPError => e
+      ErrorLogger.stdout_log_for(e, severity: :error)
       {}
     end
 

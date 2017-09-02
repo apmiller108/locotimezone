@@ -9,14 +9,13 @@ module Locotimezone
     def call
       return {} if location_invalid?
       ResultsFormatter.build_timezone_hash_for timezone_response
-    rescue OpenURI::HTTPError
+    rescue OpenURI::HTTPError => e
+      ErrorLogger.stdout_log_for(e, severity: :error)
       {}
     end
 
-    private
-
     def timezone_response
-      open(timezone_query_url) { |f| JSON.parse f.read }
+      open(timezone_query_url) { |response| JSON.parse response.read }
     end
 
     def location_invalid?
