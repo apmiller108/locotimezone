@@ -128,7 +128,9 @@ describe Locotimezone::ActiveRecordHelper do
     end
   end
 
-  context 'with empty geolocation and timezone results' do
+  context 'with empty geolocation and timezone results from 400 response' do
+    let(:logger) { Logger.new STDOUT }
+
     before :each do
       ActiveRecord::Schema.define do
         create_table :users, force: true do |t|
@@ -139,6 +141,8 @@ describe Locotimezone::ActiveRecordHelper do
       end
       stub_request(:get, /maps\/api\/geocode/).to_return(status: 400)
       stub_request(:get, /maps\/api\/timezone/).to_return(status: 400)
+      allow(Logger).to receive(:new).and_return(logger)
+      allow(logger).to receive(:error)
     end
 
     it 'does not raise error' do
