@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/apmiller108/locotimezone.svg?branch=active-model-integration)](https://travis-ci.org/apmiller108/locotimezone)
+[![Open Source Helpers](https://www.codetriage.com/apmiller108/locotimezone/badges/users.svg)](https://www.codetriage.com/apmiller108/locotimezone)
 
 # Locotimezone
 Transform a street address into geoloction and timezone data. Essentially, this
